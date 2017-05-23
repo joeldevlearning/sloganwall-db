@@ -59,9 +59,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+	App\Http\Middleware\GlobalHeader::class
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -77,7 +77,7 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
+Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class;
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
@@ -95,8 +95,7 @@ $app->singleton(
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__ . '/../app/Http/Route/helloworld.php';
-	require __DIR__ . '/../app/Http/Route/readonly.php';
-
+	require __DIR__ . '/../app/Http/Route/viaGet.php';
 });
 
 return $app;
