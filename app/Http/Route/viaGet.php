@@ -1,27 +1,27 @@
 <?php
 
-/*
- * Accepts positive integer
- */
 $app->get('item/id/{id}', 'GetItemById@main');
-
 /*
  * Accepts partial/full utf-8 or url-encoded strings
  * e.g. "%E6%94%B9%E9%9D%A9%E5%BC%80%E5%8F%91" or "改革开发"
  */
 $app->get('item/zi/{text}', 'GetItemByZi@main');
 
-/*
- * How to map pinyin to characters in database?
+$app->get('item/zh/{text}', 'SingleItem@zh');
+
+/* How to map pinyin to characters in database?
+ * $app->get('item/pinyin/{text}', 'GetItemByPinyin@main');
  */
-//$app->get('item/pinyin/{text}', 'GetItemByPinyin@main');
 
 
-$app->get('list/all/slogans', 'GetListAllSlogans@main');
 
-$app->get('list/all/zh', 'GetListAllSlogansZh@main');
+$app->get('list/all/slogans', 'ListAll');
+$app->get('list/all/zh', 'ListAll');
+$app->get('list/all/translations', 'ListAll@translations');
+$app->get('list/all/notes', 'ListAll@notes');
+$app->get('list/all/tags', 'ListAll@tags');
+
 /*
-$app->get('list/all/zh', 'GetListAllSlogansZh@main');
 
 $app->get('list/all/translations', 'GetListAllTranslations@main');
 $app->get('list/all/tags', 'GetListAllTags@main');

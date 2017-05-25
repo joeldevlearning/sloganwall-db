@@ -11,23 +11,7 @@ class ListRunner {
 	public function getAllSlogans() : array
 	{
 		return DB::select('
-			SELECT
-			  slogans.zh,
-			  slogans.pinyin,
-			  slogans.desc_summary,
-			  array_to_json(array_agg(DISTINCT translations.content),TRUE) as translation,
-			  array_to_json(array_agg(DISTINCT notes.content),TRUE) as note,
-			  array_to_json(array_agg(DISTINCT tags.label),TRUE) as tag
-			FROM
-			slogans
-			FULL JOIN slogans_to_tags ON slogans_to_tags.slogan_fk = slogans.slogan_id
-			FULL JOIN tags ON slogans_to_tags.tag_fk = tags.tag_id
-			FULL JOIN translations ON slogans.slogan_id = translations.slogan_fk
-			FULL JOIN notes ON slogans.slogan_id = notes.slogan_fk
-			  WHERE slogan_id IS NOT NULL
-			GROUP BY
-			  zh, pinyin, desc_summary
-		');
+			SELECT * FROM all_slogans_plus_related');
 	}
 
 	public function GetListAllZh() : PayloadInterface

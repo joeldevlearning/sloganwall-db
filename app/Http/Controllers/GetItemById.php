@@ -18,7 +18,7 @@ class GetItemById extends Controller
     public function main(Request $request, int $id)
     {
         //TODO error handling for non-integers on this route
-
+	    $request->input('id');
 	    $results = $this->runner->getSlogan($id);
 
 	    if(!$results)
