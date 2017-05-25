@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\{Request,Response};
-use App\Http\Controllers\RunQuery;
+use App\Http\Controllers\RunQuery\ItemRunner;
 
 class GetItemById extends Controller
 {
@@ -21,15 +21,18 @@ class GetItemById extends Controller
 
 	    $results = $this->runner->getSlogan($id);
 
-	    $status = $this->runner->onSuccess('status');
-	    $note = $this->runner->onSuccess('note');
-
 	    if(!$results)
 	    {
 	    	$results = $this->runner->getRandomSlogan();
 		    $status = $this->runner->onFailure('status');
 		    $note = $this->runner->onFailure('note');
 	    }
+	    else
+	    {
+		    $status = $this->runner->onSuccess('status');
+		    $note = $this->runner->onSuccess('note');
+	    }
+
 	    $sloganId = $results[0]->slogan_id;
 	    $sloganZh = $results[0]->zh;
 	    $sloganPinyin = $results[0]->pinyin;
@@ -48,7 +51,7 @@ class GetItemById extends Controller
         return response()->json($payload, $status, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function __construct(RunQuery\ItemRunner $runner) {
+    public function __construct(ItemRunner $runner) {
         $this->runner = $runner;
     }
 }

@@ -77,7 +77,9 @@ $app->middleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class;
+$app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+$app->register(App\Providers\PayloadFactoryServiceProvider::class);
+
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
@@ -94,7 +96,6 @@ Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class;
 */
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__ . '/../app/Http/Route/helloworld.php';
 	require __DIR__ . '/../app/Http/Route/viaGet.php';
 });
 
