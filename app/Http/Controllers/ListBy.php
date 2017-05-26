@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\QueryRunner\ListAllRunner;
+use App\Models\QueryRunner\ListByRunner;
 
-class ListAll extends Controller
+class ListBy extends Controller
 {
 	use JsonResponderTrait;
 	private $runner;
@@ -19,7 +19,7 @@ class ListAll extends Controller
 		return $this->respondWithJson($payload);
 	}
 
-	public function __construct(ListAllRunner $runner) {
+	public function __construct(ListByRunner $runner) {
 		$this->runner = $runner;
 	}
 

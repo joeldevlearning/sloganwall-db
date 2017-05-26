@@ -16,8 +16,8 @@ class ListAllRunner implements QueryRunnerInterface {
 
 	public function queryFor(Request $request) : QueryRunnerInterface
 	{
-		$path = $request->path();
-		switch($path)
+		$route = $request->path();
+		switch($route)
 		{
 			case "list/all/slogans":
 				$results = DB::select('SELECT * FROM all_slogans_plus_related');
@@ -54,6 +54,10 @@ class ListAllRunner implements QueryRunnerInterface {
 				break;
 
 			default:
+				$results = $this->getRandom();
+				$results['route'] = $route;
+				$results['query'] = null;
+				$this->setPayload($results);
 				return $this;
 				break;
 		}

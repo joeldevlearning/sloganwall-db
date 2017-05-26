@@ -8,7 +8,7 @@ use App\Models\Payload\{
 	PayloadInterface,PayloadFactoryInterface
 };
 
-class SingleItemRunner implements QueryRunnerInterface {
+class ListByRunner implements QueryRunnerInterface {
 	use RunnerHelperTrait;
 
 	private $factory;
@@ -24,27 +24,65 @@ class SingleItemRunner implements QueryRunnerInterface {
 		 */
 		$route = $this->getRoute($request);
 		$query = $this->getQuery($request);
+		if(!$query)
+		{
+			$results =
+			$this->setPayload($results);
+			return $this;
+		}
 		switch($route)
 		{
-			case "item/id/":
-				$results = DB::select('select * from slogans where slogan_id = :id', ['id' => $query]);
+			case "list/by/zi/":
+				$decoded = urldecode($query);
+				$zi = '%'.trim($decoded,'"').'%';
+				$results = DB::select('
+			SELECT * FROM slogans WHERE zh LIKE :text', ['text' => $zi]);
+
+				if(!$results)
+				{//if fails, try again with just first character
+					$firstChar = mb_substr($decoded, 0, 1, 'utf-8'); //grab first character only
+					$newZi = '%'.$firstChar.'%';
+					$results = DB::select('
+			SELECT * FROM slogans WHERE zh LIKE :text', ['text' => $newZi]);
+					$results[25] = "this is the " . $newZi;
+				}
 				$this->setPayload($results);
 				return $this;
 				break;
 
-			case "item/zh/":
-				$zh = urldecode($query);
-				$results = DB::select('select * from slogans where slogans.zh = :zh', ['zh' => $zh]);
+			case "list/by/tag/":
+				//TODO add support for Chinese tags
+				$tag = '%'.trim($query,'"').'%';
+				$results = DB::select('
+		SELECT slogans.slogan_id, tags.label FROM slogans_to_tags
+        JOIN slogans ON slogans_to_tags.slogan_fk = slogans.slogan_id
+        FULL JOIN tags ON slogans_to_tags.tag_fk = tags.tag_id
+        WHERE tags.label ILIKE :text', ['text' => $tag]);
 				$this->setPayload($results);
 				return $this;
 				break;
 
-			case "item":
-				$results = $this->getRandom();
+			case "list/by/note/":
+				//TODO add support for Chinese tags
+				$note = '%'.trim($query,'"').'%';
+				$results = DB::select('
+		SELECT slogan_fk AS slogan_id,content 
+		FROM notes 
+		WHERE notes.content ILIKE :text', ['text' => $note]);
 				$this->setPayload($results);
 				return $this;
 				break;
 
+			case "list/by/translation/":
+				//TODO add support for Chinese tags
+				$translation = '%'.trim($query,'"').'%';
+				$results = DB::select('
+		SELECT slogan_fk AS slogan_id,content 
+		FROM translations 
+		WHERE translations.content ILIKE :text', ['text' => $translation]);
+				$this->setPayload($results);
+				return $this;
+				break;
 			default:
 				$results = $this->getRandom();
 				$results['route'] = $route;

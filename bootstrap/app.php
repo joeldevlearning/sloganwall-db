@@ -78,8 +78,6 @@ $app->middleware([
 |
 */
 $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-$app->register(App\Providers\PayloadFactoryServiceProvider::class);
-
 $app->register(App\Providers\PayloadServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
