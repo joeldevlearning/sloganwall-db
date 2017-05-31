@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->middleware([
+	App\Http\Middleware\WrapInputInApiRequest::class,
 	App\Http\Middleware\GlobalHeader::class
 ]);
 

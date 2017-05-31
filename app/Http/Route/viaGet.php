@@ -1,31 +1,27 @@
 <?php
 
-$app->get('item/id/{id}', 'SingleItem');
-$app->get('item/zh/{text}', 'SingleItem');
-$app->get('item/random', 'SingleItem');
+$app->get('item/by/id/{id:[[0-9]+}', 'OneItemById'); //ok
+$app->get('item/by/zh/{text}', 'OneItemByZh'); //ok
+$app->get('item/random', 'OneItemRandom'); //ok
 
-$app->get('list/all/slogans', 'ListAll');
-$app->get('list/all/zh', 'ListAll');
-$app->get('list/all/translations', 'ListAll');
-$app->get('list/all/notes', 'ListAll');
-$app->get('list/all/tags', 'ListAll');
+$app->get('list/all/slogans', 'ListAllSlogans');
+$app->get('list/all/zh', 'ListAllZh');
+$app->get('list/all/translations', 'ListAllTranslations');
+$app->get('list/all/notes', 'ListAllNotes');
+$app->get('list/all/tags', 'ListAllTags');
 
-/*
- * Accepts partial/full utf-8 or url-encoded strings
- * e.g. "%E6%94%B9%E9%9D%A9%E5%BC%80%E5%8F%91" or "改革开发"
- */
-$app->get('list/by/zi/{text}', 'ListBy');
-$app->get('list/by/tag/{text}', 'ListBy');
-$app->get('list/by/translation/{text}', 'ListBy');
-$app->get('list/by/note/{text}', 'ListBy');
+$app->get('list/by/zi/{text}', 'ListByZi');
+$app->get('list/by/tag/{text}', 'ListByTag');
+$app->get('list/by/translation/{text}', 'ListByTranslation');
+$app->get('list/by/note/{text}', 'ListByNote');
 
 
 /*
  * Make a list of all individual characters used in slogans
  * maybe also a histogram?
-$app->get('list/all/uniquezi', 'ListAll');
+$app->get('list/all/uniquezi', 'JunkListAll');
 
-/* How to map pinyin to characters in database?
- * $app->get('item/pinyin/{text}', 'ListAll');
+/* How to regex on pinyin? is it practical?
+ * $app->get('item/pinyin/{text}', 'JunkListAll');
  */
 
