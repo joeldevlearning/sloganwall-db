@@ -5,10 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\SloganRequest\SloganRequestFactoryInterface;
 
-class WrapInputInSloganRequest
+class WrapInSloganRequest
 {
-
-	private $factory;
+    private $factory;
     /**
      * Handle an incoming request.
      *
@@ -18,18 +17,18 @@ class WrapInputInSloganRequest
      */
     public function handle($request, Closure $next)
     {
-	    $apiRequest = $this->factory->create($request);
-	    $request->merge(['apiRequest' => $apiRequest]);
+        $apiRequest = $this->factory->create($request);
+        $request->merge(['apiRequest' => $apiRequest]);
 
-	    return $next($request);
+        return $next($request);
     }
 
-	/**
-	 * WrapInputInSloganRequest constructor.
-	 *
-	 * @param SloganRequestFactoryInterface $factory
-	 */
-	public function __construct(SloganRequestFactoryInterface $factory)
+    /**
+     * WrapInputInSloganRequest constructor.
+     *
+     * @param SloganRequestFactoryInterface $factory
+     */
+    public function __construct(SloganRequestFactoryInterface $factory)
     {
         $this->factory = $factory;
     }

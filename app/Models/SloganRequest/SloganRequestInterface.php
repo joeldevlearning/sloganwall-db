@@ -4,9 +4,9 @@ namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
-interface SloganRequestInterface {
+interface SloganRequestInterface
+{
+    public function getInput() : string;
 
-	public function getInput() : string;
-
-	public function __construct(string $input = null);
+    public function __construct(string $input = null);
 }

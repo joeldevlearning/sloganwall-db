@@ -60,7 +60,7 @@ $app->singleton(
 */
 
 $app->middleware([
-	App\Http\Middleware\WrapInputInSloganRequest::class,
+	App\Http\Middleware\WrapInSloganRequest::class,
 	App\Http\Middleware\GlobalHeader::class
 ]);
 

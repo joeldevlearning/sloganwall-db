@@ -8,25 +8,24 @@ use App\Models\Formatter\JsonFormat;
 
 class ListByNote extends Controller
 {
-	use JsonResponderTrait;
-	private $repo;
-	private $format;
+    use JsonResponderTrait;
+    private $repo;
+    private $format;
 
-	public function __invoke(Request $request)
-	{
-		$apiRequest = $request->input('apiRequest');
+    public function __invoke(Request $request)
+    {
+        $apiRequest = $request->input('apiRequest');
 
-		$results = $this->repo->anyItemByNote($apiRequest->getInput());
+        $results = $this->repo->anyItemByNote($apiRequest->getInput());
 
-		$payload = $this->format->packPayload($results);
+        $payload = $this->format->packPayload($results);
 
-		return $this->jsonResponse($payload);
-	}
+        return $this->jsonResponse($payload);
+    }
 
-	public function __construct(SloganRepo $repo, JsonFormat $format)
-	{
-		$this->repo = $repo;
-		$this->format = $format;
-	}
-
+    public function __construct(SloganRepo $repo, JsonFormat $format)
+    {
+        $this->repo = $repo;
+        $this->format = $format;
+    }
 }
