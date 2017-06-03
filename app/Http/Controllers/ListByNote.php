@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Repo\SloganRepo;
-use App\Models\Format\JsonFormat;
+use App\Models\Formatter\JsonFormat;
 
 class ListByNote extends Controller
 {

@@ -60,7 +60,7 @@ $app->singleton(
 */
 
 $app->middleware([
-	App\Http\Middleware\WrapInputInApiRequest::class,
+	App\Http\Middleware\WrapInputInSloganRequest::class,
 	App\Http\Middleware\GlobalHeader::class
 ]);
 
@@ -79,7 +79,7 @@ $app->middleware([
 |
 */
 $app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-$app->register(App\Providers\PayloadServiceProvider::class);
+$app->register(App\Providers\SloganRequestResponseProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);

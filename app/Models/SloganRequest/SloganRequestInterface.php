@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\ApiRequest;
+namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
-interface ApiRequestInterface {
+interface SloganRequestInterface {
 
 	public function getInput() : string;
 

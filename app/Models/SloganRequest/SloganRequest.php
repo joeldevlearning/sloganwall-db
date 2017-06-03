@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\ApiRequest;
+namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
-class ApiRequest implements ApiRequestInterface {
+class SloganRequest implements SloganRequestInterface {
 	protected $input;
 
 	public function getInput(): string

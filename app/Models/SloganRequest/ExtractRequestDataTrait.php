@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Models\ApiRequest;
+namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
-trait HttpRequestTrait {
+trait ExtractRequestDataTrait {
 
+	/*
+	 * UNUSED
+	 * opposite of extract query
+	 */
 	public function extractRoute(Request $request) : string
 	{
 		$path = $request->path();
@@ -19,14 +23,5 @@ trait HttpRequestTrait {
 		$everythingAfterSlash = '/([^\/]+$)/';
 		preg_match($everythingAfterSlash, $path, $matches);
 		return $matches[1];
-	}
-
-	public function isEmpty(string $var) : bool
-	{
-		if(is_numeric($var) && !$var)
-		{
-			return TRUE;
-		}
-		return empty($var) && !is_numeric($var);
 	}
 }

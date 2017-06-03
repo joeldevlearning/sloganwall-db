@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Payload;
+namespace App\Models\SloganResponse;
 
-class Payload implements PayloadInterface {
+class SloganResponse implements SloganResponseInterface {
 
 	private $statusCode;
 	private $objectType;
@@ -16,9 +16,9 @@ class Payload implements PayloadInterface {
 	/**
 	 * @param int $statusCode
 	 *
-	 * @return Payload
+	 * @return SloganResponse
 	 */
-	public function setStatusCode( int $statusCode ): Payload {
+	public function setStatusCode( int $statusCode ): SloganResponse {
 		$this->statusCode = $statusCode;
 
 		return $this;
@@ -27,9 +27,9 @@ class Payload implements PayloadInterface {
 	/**
 	 * @param string $message
 	 *
-	 * @return Payload
+	 * @return SloganResponse
 	 */
-	public function setMessage( string $message ): Payload {
+	public function setMessage( string $message ): SloganResponse {
 		$this->message = $message;
 
 		return $this;
@@ -38,9 +38,9 @@ class Payload implements PayloadInterface {
 	/**
 	 * @param mixed $objectType
 	 *
-	 * @return Payload
+	 * @return SloganResponse
 	 */
-	public function setObjectType( string $objectType ) : Payload
+	public function setObjectType( string $objectType ) : SloganResponse
 	{
 		$this->objectType = $objectType;
 
