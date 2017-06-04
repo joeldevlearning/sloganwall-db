@@ -53,8 +53,8 @@ class SloganResponse implements SloganResponseInterface
     public function getData() : array
     {
         return  [
-            'object'    => $this->objectType,
-            'message'   => $this->message,
+            //'object'    => $this->objectType,
+            //'message'   => $this->message,
             'data'      => $this->results
         ];
     }

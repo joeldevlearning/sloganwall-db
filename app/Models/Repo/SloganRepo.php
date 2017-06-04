@@ -2,98 +2,117 @@
 
 namespace App\Models\Repo;
 
-class SloganRepo
+use App\Models\SloganResponse\SloganResponseInterface;
+use App\Models\SloganResponse\SloganResponseFactoryInterface;
+
+class SloganRepo extends RepoAbstract
 {
     private $db;
 
-    public function oneItemById(int $id): array
+    public function oneItemById(int $id): SloganResponseInterface
     {
-        return $this->db->select('SELECT * FROM slogans WHERE slogan_id = :id', [ 'id' => $id ]);
+	    $results = $this->db->select('SELECT * FROM slogans WHERE slogan_id = :id', [ 'id' => $id ]);
+	    return $this->wrap($results);
     }
 
-    public function oneItemByZh(string $zh): array
+    public function oneItemByZh(string $zh): SloganResponseInterface
     {
-        return $this->db->select('SELECT * FROM slogans WHERE slogans.zh = :zh', [ 'zh' => $zh ]);
+        $results = $this->db->select('SELECT * FROM slogans WHERE slogans.zh = :zh', [ 'zh' => $zh ]);
+	    return $this->wrap($results);
     }
 
-    public function random(): array
+    public function random(): SloganResponseInterface
     {
-        return $this->db->select('SELECT * FROM slogans ORDER BY RANDOM() LIMIT 1');
+        $results = $this->db->select('SELECT * FROM slogans ORDER BY RANDOM() LIMIT 1');
+        return $this->wrap($results);
     }
 
-    public function anyItemByZi(string $zi): array
+    public function anyItemByZi(string $zi): SloganResponseInterface
     {
-        $zi = '%' . trim($zi, '"') . '%';
+        $zi = '%' . trim($zi, '"') . '%'; //format for postgreSQL
 
-        return $this->db->select('SELECT * FROM slogans WHERE zh LIKE :text', [ 'text' => $zi ]);
+        $results = $this->db->select('SELECT * FROM slogans WHERE zh LIKE :text', [ 'text' => $zi ]);
+	    return $this->wrap($results);
     }
 
-    public function anyItemByFirstZi(string $zi): array
+    public function anyItemByFirstZi(string $zi): SloganResponseInterface
     {
         $zi = mb_substr($zi, 0, 1, 'utf-8'); //grab first character
         $zi = '%' . trim($zi, '"') . '%';
 
-        return $this->db->select('SELECT * FROM slogans WHERE zh LIKE :text', [ 'text' => $zi ]);
+	    $results = $this->db->select('SELECT * FROM slogans WHERE zh LIKE :text', [ 'text' => $zi ]);
+	    return $this->wrap($results);
     }
 
-    public function anyItemByTag(string $tag): array
+    public function anyItemByTag(string $tag): SloganResponseInterface
     {
         $tag = '%' . trim($tag, '"') . '%';
 
-        return $this->db->select('
+        $results = $this->db->select('
 		SELECT slogans.slogan_id, tags.label FROM slogans_to_tags
         JOIN slogans ON slogans_to_tags.slogan_fk = slogans.slogan_id
         FULL JOIN tags ON slogans_to_tags.tag_fk = tags.tag_id
         WHERE tags.label ILIKE :text', [ 'text' => $tag ]);
+
+	    return $this->wrap($results);
     }
 
-    public function anyItemByTranslation(string $translation): array
+    public function anyItemByTranslation(string $translation): SloganResponseInterface
     {
         $translation = '%' . trim($translation, '"') . '%';
 
-        return $this->db->select('SELECT slogan_fk AS slogan_id,content FROM translations WHERE translations.content ILIKE :text',
+        $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM translations WHERE translations.content ILIKE :text',
             [ 'text' => $translation ]);
+
+	    return $this->wrap($results);
     }
 
-    public function anyItemByNote(string $note): array
+    public function anyItemByNote(string $note): SloganResponseInterface
     {
         $note = '%' . trim($note, '"') . '%';
 
-        return $this->db->select('SELECT slogan_fk AS slogan_id,content FROM notes WHERE notes.content ILIKE :text',
+        $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM notes WHERE notes.content ILIKE :text',
             [ 'text' => $note ]);
+	    return $this->wrap($results);
     }
 
-    public function allSlogans(): array
+    public function allSlogans(): SloganResponseInterface
     {
-        return $this->db->select('SELECT * FROM all_slogans_plus_related');
+        $results = $this->db->select('SELECT * FROM all_slogans_plus_related');
+	    return $this->wrap($results);
     }
 
-    public function allZh(): array
+    public function allZh(): SloganResponseInterface
     {
-        return $this->db->select('SELECT slogans.slogan_id, slogans.zh FROM slogans');
+        $results = $this->db->select('SELECT slogans.slogan_id, slogans.zh FROM slogans');
+	    return $this->wrap($results);
     }
 
-    public function allTranslations(): array
+    public function allTranslations(): SloganResponseInterface
     {
-        return $this->db->select('SELECT slogan_fk AS slogan_id,content FROM translations');
+        $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM translations');
+	    return $this->wrap($results);
     }
 
-    public function allNotes(): array
+    public function allNotes(): SloganResponseInterface
     {
-        return $this->db->select('SELECT slogan_fk AS slogan_id,content FROM notes');
+        $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM notes');
+	    return $this->wrap($results);
     }
 
-    public function allTags(): array
+    public function allTags(): SloganResponseInterface
     {
-        return $this->db->select('
+        $results = $this->db->select('
 				SELECT slogans.slogan_id, tags.label FROM slogans_to_tags
 				JOIN slogans ON slogans_to_tags.slogan_fk = slogans.slogan_id
 				FULL JOIN tags ON slogans_to_tags.tag_fk = tags.tag_id
 				');
+	    return $this->wrap($results);
     }
 
-    public function __construct()
+    public function __construct(SloganResponseFactoryInterface $factory)
     {
+	    parent::__construct($factory);
         $this->db = app('db');
     }
 }

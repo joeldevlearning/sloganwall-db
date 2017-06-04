@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Repo\SloganRepo;
-use App\Models\Formatter\JsonFormat;
 
 class ListByZi extends Controller
 {
@@ -23,14 +22,11 @@ class ListByZi extends Controller
             $results = $this->repo->anyItemByFirstZi($zi);
         }
 
-        $payload = $this->format->packPayload($results);
-
-        return $this->jsonResponse($payload);
+        return $this->jsonResponse($results);
     }
 
-    public function __construct(SloganRepo $repo, JsonFormat $format)
+    public function __construct(SloganRepo $repo)
     {
         $this->repo = $repo;
-        $this->format = $format;
     }
 }
