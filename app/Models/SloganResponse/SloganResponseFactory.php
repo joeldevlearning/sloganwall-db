@@ -2,14 +2,26 @@
 
 namespace App\Models\SloganResponse;
 
+/**
+ * Class SloganResponseFactory
+ * @package App\Models\SloganResponse
+ */
 class SloganResponseFactory implements SloganResponseFactoryInterface
 {
-    public function create(array $results) : SloganResponseInterface
+	/**
+	 * @param array $results
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function create(array $results) : SloganResponseInterface
     {
         return new SloganResponse($results);
     }
 
-    public function __construct()
+	/**
+	 * SloganResponseFactory constructor.
+	 */
+	public function __construct()
     {
     }
 }

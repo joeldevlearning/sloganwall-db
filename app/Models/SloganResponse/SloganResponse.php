@@ -2,6 +2,10 @@
 
 namespace App\Models\SloganResponse;
 
+/**
+ * Class SloganResponse
+ * @package App\Models\SloganResponse
+ */
 class SloganResponse implements SloganResponseInterface
 {
     private $statusCode;
@@ -9,7 +13,10 @@ class SloganResponse implements SloganResponseInterface
     private $message;
     private $results;
 
-    public function getStatusCode(): int
+	/**
+	 * @return int
+	 */
+	public function getStatusCode(): int
     {
         return $this->statusCode;
     }
@@ -50,7 +57,10 @@ class SloganResponse implements SloganResponseInterface
         return $this;
     }
 
-    public function getData() : array
+	/**
+	 * @return array
+	 */
+	public function getData() : array
     {
         return  [
             //'object'    => $this->objectType,
@@ -58,7 +68,13 @@ class SloganResponse implements SloganResponseInterface
             'data'      => $this->results
         ];
     }
-    public function __construct(array $results=[])
+
+	/**
+	 * SloganResponse constructor.
+	 *
+	 * @param array $results
+	 */
+	public function __construct(array $results=[])
     {
         $this->results = $results;
     }

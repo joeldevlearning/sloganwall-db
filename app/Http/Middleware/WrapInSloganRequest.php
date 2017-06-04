@@ -5,6 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\SloganRequest\SloganRequestFactoryInterface;
 
+/**
+ * Class WrapInSloganRequest
+ * @package App\Http\Middleware
+ */
 class WrapInSloganRequest
 {
     private $factory;

@@ -1,8 +1,8 @@
 <?php
 
-$app->get('item/by/id/{id:[[0-9]+}', 'OneItemById'); //ok
-$app->get('item/by/zh/{text}', 'OneItemByZh'); //ok
-$app->get('item/random', 'OneItemRandom'); //ok
+$app->get('item/by/id/{id:[[0-9]+}', 'OneItemById');
+$app->get('item/by/zh/{text}', 'OneItemByZh');
+$app->get('item/random', 'OneItemRandom');
 
 $app->get('list/all/slogans', 'ListAllSlogans');
 $app->get('list/all/zh', 'ListAllZh');

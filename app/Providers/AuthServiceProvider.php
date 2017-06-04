@@ -6,6 +6,10 @@ use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AuthServiceProvider
+ * @package App\Providers
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**

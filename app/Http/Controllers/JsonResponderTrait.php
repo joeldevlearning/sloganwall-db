@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use App\Models\SloganResponse\SloganResponseInterface;
 
+/**
+ * Trait JsonResponderTrait
+ * @package App\Http\Controllers
+ */
 trait JsonResponderTrait
 {
-    public function jsonResponse(SloganResponseInterface $payload) : JsonResponse
+	/**
+	 * @param SloganResponseInterface $payload
+	 *
+	 * @return JsonResponse
+	 */
+	public function jsonResponse(SloganResponseInterface $payload) : JsonResponse
     {
         return response()
             ->json($payload->getData(), 200,

@@ -3,6 +3,9 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
+/**
+ * Class ExampleTest
+ */
 class ExampleTest extends TestCase
 {
     /**

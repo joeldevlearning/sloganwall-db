@@ -6,6 +6,10 @@ use App\Events\ExampleEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+/**
+ * Class ExampleListener
+ * @package App\Listeners
+ */
 class ExampleListener
 {
     /**

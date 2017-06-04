@@ -4,9 +4,21 @@ namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
+/**
+ * Interface SloganRequestInterface
+ * @package App\Models\SloganRequest
+ */
 interface SloganRequestInterface
 {
-    public function getInput() : string;
+	/**
+	 * @return string
+	 */
+	public function getInput() : string;
 
-    public function __construct(string $input = null);
+	/**
+	 * SloganRequestInterface constructor.
+	 *
+	 * @param string|null $input
+	 */
+	public function __construct(string $input = null);
 }

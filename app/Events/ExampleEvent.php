@@ -2,6 +2,10 @@
 
 namespace App\Events;
 
+/**
+ * Class ExampleEvent
+ * @package App\Events
+ */
 class ExampleEvent extends Event
 {
     /**

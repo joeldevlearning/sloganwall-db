@@ -3,6 +3,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class SloganRequestResponseProvider
+ * @package App\Providers
+ */
 class SloganRequestResponseProvider extends ServiceProvider
 {
     public function register()

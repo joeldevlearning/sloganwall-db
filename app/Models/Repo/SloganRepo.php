@@ -5,29 +5,51 @@ namespace App\Models\Repo;
 use App\Models\SloganResponse\SloganResponseInterface;
 use App\Models\SloganResponse\SloganResponseFactoryInterface;
 
+/**
+ * Class SloganRepo
+ * @package App\Models\Repo
+ */
 class SloganRepo extends RepoAbstract
 {
     private $db;
 
-    public function oneItemById(int $id): SloganResponseInterface
+	/**
+	 * @param int $id
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function oneItemById(int $id): SloganResponseInterface
     {
 	    $results = $this->db->select('SELECT * FROM slogans WHERE slogan_id = :id', [ 'id' => $id ]);
 	    return $this->wrap($results);
     }
 
-    public function oneItemByZh(string $zh): SloganResponseInterface
+	/**
+	 * @param string $zh
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function oneItemByZh(string $zh): SloganResponseInterface
     {
         $results = $this->db->select('SELECT * FROM slogans WHERE slogans.zh = :zh', [ 'zh' => $zh ]);
 	    return $this->wrap($results);
     }
 
-    public function random(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function random(): SloganResponseInterface
     {
         $results = $this->db->select('SELECT * FROM slogans ORDER BY RANDOM() LIMIT 1');
         return $this->wrap($results);
     }
 
-    public function anyItemByZi(string $zi): SloganResponseInterface
+	/**
+	 * @param string $zi
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function anyItemByZi(string $zi): SloganResponseInterface
     {
         $zi = '%' . trim($zi, '"') . '%'; //format for postgreSQL
 
@@ -35,7 +57,12 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function anyItemByFirstZi(string $zi): SloganResponseInterface
+	/**
+	 * @param string $zi
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function anyItemByFirstZi(string $zi): SloganResponseInterface
     {
         $zi = mb_substr($zi, 0, 1, 'utf-8'); //grab first character
         $zi = '%' . trim($zi, '"') . '%';
@@ -44,7 +71,12 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function anyItemByTag(string $tag): SloganResponseInterface
+	/**
+	 * @param string $tag
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function anyItemByTag(string $tag): SloganResponseInterface
     {
         $tag = '%' . trim($tag, '"') . '%';
 
@@ -57,7 +89,12 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function anyItemByTranslation(string $translation): SloganResponseInterface
+	/**
+	 * @param string $translation
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function anyItemByTranslation(string $translation): SloganResponseInterface
     {
         $translation = '%' . trim($translation, '"') . '%';
 
@@ -67,7 +104,12 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function anyItemByNote(string $note): SloganResponseInterface
+	/**
+	 * @param string $note
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function anyItemByNote(string $note): SloganResponseInterface
     {
         $note = '%' . trim($note, '"') . '%';
 
@@ -76,31 +118,46 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function allSlogans(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function allSlogans(): SloganResponseInterface
     {
         $results = $this->db->select('SELECT * FROM all_slogans_plus_related');
 	    return $this->wrap($results);
     }
 
-    public function allZh(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function allZh(): SloganResponseInterface
     {
         $results = $this->db->select('SELECT slogans.slogan_id, slogans.zh FROM slogans');
 	    return $this->wrap($results);
     }
 
-    public function allTranslations(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function allTranslations(): SloganResponseInterface
     {
         $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM translations');
 	    return $this->wrap($results);
     }
 
-    public function allNotes(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function allNotes(): SloganResponseInterface
     {
         $results = $this->db->select('SELECT slogan_fk AS slogan_id,content FROM notes');
 	    return $this->wrap($results);
     }
 
-    public function allTags(): SloganResponseInterface
+	/**
+	 * @return SloganResponseInterface
+	 */
+	public function allTags(): SloganResponseInterface
     {
         $results = $this->db->select('
 				SELECT slogans.slogan_id, tags.label FROM slogans_to_tags
@@ -110,7 +167,12 @@ class SloganRepo extends RepoAbstract
 	    return $this->wrap($results);
     }
 
-    public function __construct(SloganResponseFactoryInterface $factory)
+	/**
+	 * SloganRepo constructor.
+	 *
+	 * @param SloganResponseFactoryInterface $factory
+	 */
+	public function __construct(SloganResponseFactoryInterface $factory)
     {
 	    parent::__construct($factory);
         $this->db = app('db');

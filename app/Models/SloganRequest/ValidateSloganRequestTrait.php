@@ -8,6 +8,10 @@ namespace App\Models\SloganRequest;
  * The factory itself is called in middleware
  */
 //routes do not give full regex support, so skip that
+/**
+ * Trait ValidateSloganRequestTrait
+ * @package App\Models\SloganRequest
+ */
 trait ValidateSloganRequestTrait
 {
     private $Han = "/^\p{Han}+$/u";
@@ -17,7 +21,12 @@ trait ValidateSloganRequestTrait
     /*
     * e.g. "改革开发" encoded as "%E6%94%B9%E9%9D%A9%E5%BC%80%E5%8F%91"
     */
-    public function isUrlEncoded(string $query) : bool
+	/**
+	 * @param string $query
+	 *
+	 * @return bool
+	 */
+	public function isUrlEncoded(string $query) : bool
     {
         if (preg_match($this->urlencoded, $query)) {
             return true;
@@ -25,7 +34,12 @@ trait ValidateSloganRequestTrait
         return false;
     }
 
-    public function isValidZi(string $text) : bool
+	/**
+	 * @param string $text
+	 *
+	 * @return bool
+	 */
+	public function isValidZi(string $text) : bool
     {
         if (preg_match($this->Han, $text)) {
             return true;
@@ -33,7 +47,12 @@ trait ValidateSloganRequestTrait
         return false;
     }
 
-    public function isValidText(string $text) : bool
+	/**
+	 * @param string $text
+	 *
+	 * @return bool
+	 */
+	public function isValidText(string $text) : bool
     {
         if (preg_match($this->HanLatinNum, $text)) {
             return true;

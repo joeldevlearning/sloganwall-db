@@ -2,9 +2,21 @@
 
 namespace App\Models\SloganResponse;
 
+/**
+ * Interface SloganResponseFactoryInterface
+ * @package App\Models\SloganResponse
+ */
 interface SloganResponseFactoryInterface
 {
-    public function create(array $results) : SloganResponseInterface;
+	/**
+	 * @param array $results
+	 *
+	 * @return SloganResponseInterface
+	 */
+	public function create(array $results) : SloganResponseInterface;
 
-    public function __construct();
+	/**
+	 * SloganResponseFactoryInterface constructor.
+	 */
+	public function __construct();
 }

@@ -4,6 +4,10 @@ namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class SloganRequestFactory
+ * @package App\Models\SloganRequest
+ */
 class SloganRequestFactory implements SloganRequestFactoryInterface
 {
     use ExtractRequestDataTrait;
@@ -11,7 +15,12 @@ class SloganRequestFactory implements SloganRequestFactoryInterface
 
     private $rawInput;
 
-    public function create(Request $request) : SloganRequestInterface
+	/**
+	 * @param Request $request
+	 *
+	 * @return SloganRequestInterface
+	 */
+	public function create(Request $request) : SloganRequestInterface
     {
         if ($request->is('list/all/')) {
             //ignore input
@@ -41,7 +50,12 @@ class SloganRequestFactory implements SloganRequestFactoryInterface
         return abort(422, "Invalid input");
     }
 
-    public function __construct(Request $request)
+	/**
+	 * SloganRequestFactory constructor.
+	 *
+	 * @param Request $request
+	 */
+	public function __construct(Request $request)
     {
         $input = $this->extractQuery($request);
 

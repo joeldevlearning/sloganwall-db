@@ -4,7 +4,16 @@ namespace App\Models\SloganRequest;
 
 use Illuminate\Http\Request;
 
+/**
+ * Interface SloganRequestFactoryInterface
+ * @package App\Models\SloganRequest
+ */
 interface SloganRequestFactoryInterface
 {
-    public function create(Request $request) : SloganRequestInterface;
+	/**
+	 * @param Request $request
+	 *
+	 * @return SloganRequestInterface
+	 */
+	public function create(Request $request) : SloganRequestInterface;
 }

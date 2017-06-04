@@ -4,6 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+/**
+ * Class GlobalHeader
+ * @package App\Http\Middleware
+ */
 class GlobalHeader
 {
     /**

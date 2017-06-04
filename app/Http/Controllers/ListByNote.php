@@ -6,12 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Repo\SloganRepo;
 use App\Models\Formatter\JsonFormatter;
 
+/**
+ * Class ListByNote
+ * @package App\Http\Controllers
+ */
 class ListByNote extends Controller
 {
     use JsonResponderTrait;
     private $repo;
 
-    public function __invoke(Request $request)
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function __invoke(Request $request)
     {
         $apiRequest = $request->input('apiRequest');
 
@@ -20,7 +29,12 @@ class ListByNote extends Controller
         return $this->jsonResponse($results);
     }
 
-    public function __construct(SloganRepo $repo)
+	/**
+	 * ListByNote constructor.
+	 *
+	 * @param SloganRepo $repo
+	 */
+	public function __construct(SloganRepo $repo)
     {
         $this->repo = $repo;
     }
